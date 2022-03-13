@@ -20,6 +20,9 @@ impl Config {
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>>  {
     let contents = fs::read_to_string(config.file_name)?;
+    for line in search(&config.query, &contents) {
+        println!("{}", line); 
+    }
 
     Ok(())
 }
@@ -44,7 +47,7 @@ mod tests {
 
     #[test]
     fn one_result() {
-        let query = "safe, fast, productive.";
+        let query = "duct";
         let contents = "\
 Rust:
 safe, fast, productive.
